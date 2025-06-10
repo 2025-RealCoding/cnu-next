@@ -12,17 +12,16 @@ const Header = ({ title }: HeaderProps) => {
   const { user, setUser } = useUser();
 
   return (
-    <div className="header flex justify-between items-center px-4 py-2">
-      <h1 className="text-xl font-bold">{title}</h1>
+    <div className="w-full mx-auto flex justify-between items-center px-6 py-4 bg-white shadow-sm rounded-md">
+      <h1 className="text-lg font-semibold">{title}</h1>
 
       <div className="flex items-center gap-2">
-        {/* public directory에 profile.svg 파일 넣은 후, image tag에 경로 지정 */}
         <img
           src="/profile.svg"
-          alt={user.name}
-          className="w-8 h-8 rounded-full"
+          alt="profile"
+          className="w-6 h-6 rounded-full bg-gray-300"
         />
-        <span className="text-sm">{user.name}</span>
+        <span className="text-sm font-medium text-gray-800">{user.name}</span>
       </div>
     </div>
   );
