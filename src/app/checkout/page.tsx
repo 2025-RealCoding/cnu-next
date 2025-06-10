@@ -1,4 +1,6 @@
 // CheckoutPage
+"use client"; 
+
 import { useState } from "react";
 import { ProductItem } from "@/types/Product";
 
