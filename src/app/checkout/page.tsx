@@ -56,6 +56,14 @@ export default function CheckoutPage() {
           </>
         )}
       {/* 3.2. 홈으로 가기 버튼 구현 */}
+      <div className="mt-6 text-center">
+        <a
+          href="/"
+          className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          홈으로 가기
+        </a>
+      </div>
       </div>
     );
 }
