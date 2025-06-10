@@ -12,7 +12,7 @@ const Header = ({ title }: HeaderProps) => {
   const { user, setUser } = useUser();
 
   return (
-    <div className="w-full max-w-md mx-auto flex justify-between items-center px-6 py-4 bg-white shadow-sm rounded-md">
+    <div className="w-full mx-auto flex justify-between items-center px-6 py-4 bg-white shadow-sm rounded-md">
       <h1 className="text-lg font-semibold">{title}</h1>
 
       <div className="flex items-center gap-2">
