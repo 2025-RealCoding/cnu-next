@@ -16,8 +16,8 @@ export async function GET(request: Request) {
     )}`,
     {
       headers: {
-        "X-Naver-Client-Id": process.env.NAVER_CLIENT_ID!,
-        "X-Naver-Client-Secret": process.env.NAVER_CLIENT_SECRET!,
+        "X-Naver-Client-Id": "qZcXFO7NtvRjFA4iq4oM",
+        "X-Naver-Client-Secret": "Dd7ECXWUJC",
       },
     }
   );
