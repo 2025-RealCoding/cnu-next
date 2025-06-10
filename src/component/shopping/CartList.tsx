@@ -1,5 +1,6 @@
 "use client";
 import { ProductItem } from "@/types/Product";
+import { useRouter } from "next/navigation";
 
 interface Props {
   cart: { [productId: string]: number };
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export default function CartList({ cart, products, onRemove }: Props) {
+  const router = useRouter();
+  
   const cartItems = Object.entries(cart)
     .map(([id, quantity]) => {
       const product = products.find((p) => p.productId === id);
@@ -21,7 +24,21 @@ export default function CartList({ cart, products, onRemove }: Props) {
   );
 
   // 2.4 결제하기: "결제하기" 버튼을 클릭하면, 현재 장바구니에 담긴 상품을 확인해 **localStorage**에 저장 후, 결제완료(/checkout) 페이지로 이동한다.
-  const handleCheckout = () => {};
+  const handleCheckout = () => {
+    // 장바구니에 담긴 item 객체들 찾기
+    const checkoutItems = cartItems.map(item => ({
+      productId: item.productId,
+      title: item.title,
+      lprice: item.lprice,
+      quantity: item.quantity
+    }));
+    
+    // localStorage를 사용한 저장
+    localStorage.setItem('checkoutItems', JSON.stringify(checkoutItems));
+    
+    // 페이지 이동
+    router.push('/checkout');
+  };
 
   return (
     <div className="p-4 bg-white rounded shadow mt-6">
@@ -61,7 +78,12 @@ export default function CartList({ cart, products, onRemove }: Props) {
       <div className="flex justify-center">
         <button
           onClick={handleCheckout}
-          className="mt-4 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 flex justify-center"
+          disabled={cartItems.length === 0}
+          className={`mt-4 w-full py-2 rounded flex justify-center transition-colors ${
+            cartItems.length === 0 
+              ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
+              : 'bg-green-500 text-white hover:bg-green-600'
+          }`}
         >
           결제하기
         </button>
