@@ -17,6 +17,9 @@ export default function CheckoutPage() {
     if (storedItems) {
       const parsedItems: CheckoutItem[] = JSON.parse(storedItems);
       setItems(parsedItems);
+      parsedItems.forEach((item) => {
+        localStorage.removeItem(item.product.productId);
+      });
       localStorage.removeItem("checkoutItems");
     }
   }, []);
