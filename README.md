@@ -1,15 +1,15 @@
 # CNU 실전코딩 FE 과제
 
-### 과제 1. Mypage 구현 (각 1점)
+### 과제 1. Mypage 구현 (각 1점, 결과 화면 강의 자료 참고)
 
-#### 1.1. UserContext를 활용한 Mypage 구현
+#### 1.1. UserContext를 활용한 Mypage 구현 
 
 - UserContext에 추가되어야 할 프로퍼티
   - 아이디(userId: string)
   - 나이(age: number)
   - 핸드폰번호(phoneNumber: string)
 
-#### 1.2. Header Component를 재활용하여 Mypage Header 표기
+#### 1.2. Header Component를 재활용하여 Mypage Header 구현
 
 - (title: 마이페이지)
 
@@ -17,7 +17,7 @@
 
 - Link or Router 활용
 
-### 과제2. 검색(SearchInput), 상품리스트(ProductCart), 장바구니(CartList) (총 4점)
+### 과제2. 검색(SearchInput), 상품리스트(ProductCart), 장바구니(CartList) (총 4점, 결과 화면 강의 자료 참고)
 
 #### 2.1. 장바구니에 아이템이 없을 때, 장바구니 영역이 보이지 않는 기능 (useEffect 활용) (0.5점)
 
@@ -42,7 +42,7 @@
 - 저장해야 할 프로퍼티는 과제3 참고
 - 참고 링크 [localStorage](https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage)
 
-### 과제 3. 결제완료 (총 3점)
+### 과제 3. 결제완료 (총 3점, 결과 화면 강의 자료 참고)
 
 #### 3.1. 결제 완료 페이지 구현(2점)
 
@@ -60,7 +60,8 @@
 ### 과제 관련 공지사항
 
 - /api 이외의 디렉토리(component, context, interface, types ...)는 /src 아래에 배치가 맞아서 변경해뒀습니다
-- 제출 방법: 제목을 학번 이름(ex. 2025**\*** 장은정)으로 설정하여 제출
+- 과제는 README에 올라온 과제1~3이 기준입니다.
+- 제출 방법: PR 제목을 학번 이름(ex. 2025**\*** 장은정)으로 설정하여 제출
 - 기간: **6/16(월) 자정** (일요일 제출에서 월요일 제출로 변경했습니다.)
 - 문의사항은 slack dm으로 요청주세요!
 
