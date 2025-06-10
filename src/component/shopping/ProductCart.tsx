@@ -20,15 +20,24 @@ export default function ProductCart({ items }: { items: ProductItem[] }) {
   };
 
   /* 과제 2-3: Cart 아이템 지우기 */
-  const handleRemoveFromCart = () => {};
-
+  const handleRemoveFromCart = (productId: string) => {
+    setCart((prev) => {
+      const newCart = { ...prev };
+      delete newCart[productId];
+      return newCart;
+    });
+    localStorage.removeItem(productId);
+  };
+  
   return (
     <div className="p-10">
       {/* 상품 리스트 */}
       <ProductList items={items} onAddToCart={handleAddToCart} />
       {/* 장바구니 */}
       {/* 2.1. 조건부 카트 보이기: 카트에 담긴 상품이 없으면 카트가 보이지 않고, 카트에 담긴 물건이 있으면 카트가 보인다 */}
-      <CartList cart={cart} products={items} onRemove={handleRemoveFromCart} />
+      {Object.keys(cart).length > 0 && (
+        <CartList cart={cart} products={items} onRemove={handleRemoveFromCart} />
+      )}
     </div>
   );
 }
