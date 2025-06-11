@@ -21,7 +21,19 @@ export default function CartList({ cart, products, onRemove }: Props) {
   );
 
   // 2.4 결제하기: "결제하기" 버튼을 클릭하면, 현재 장바구니에 담긴 상품을 확인해 **localStorage**에 저장 후, 결제완료(/checkout) 페이지로 이동한다.
-  const handleCheckout = () => {};
+  const handleCheckout = () => {
+    const checkoutData = cartItems.map((item) => ({
+      product: {
+        productId: item.productId,
+        title: item.title,
+        lprice: item.lprice,
+      },
+      quantity: item.quantity,
+    }));
+    
+    localStorage.setItem("checkoutItems", JSON.stringify(checkoutData));
+    window.location.href = "/checkout";
+  };
 
   return (
     <div className="p-4 bg-white rounded shadow mt-6">
