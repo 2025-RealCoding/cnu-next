@@ -1,8 +1,14 @@
 "use client";
 import { useSearch } from "@/context/SearchContext";
+import { useRef, useEffect } from "react";
 
 export default function SearchInput() {
   const { query, setQuery, setResult } = useSearch();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // 검색 기능
   const search = async () => {
@@ -19,13 +25,16 @@ export default function SearchInput() {
   };
 
   // 2.2. SearchInput 컴포넌트가 최초 렌더링 될 때, input tag에 포커스 되는 기능
-  const handleInputChange = () => {};
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
 
   // 과제 1-2-3: 페이지 최초 렌더링 시, input에 포커스 되는 기능 (useRef)
 
   return (
     <div className="flex justify-center items-center gap-2 mt-4">
       <input
+        ref={inputRef}
         type="text"
         value={query}
         onChange={handleInputChange}

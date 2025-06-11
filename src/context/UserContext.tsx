@@ -5,10 +5,12 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 // User
 interface User {
+  userId: string;
   name: string;
-  // age: number
-  // 추가하고 싶은 속성들 ...
+  age: number;
+  phoneNumber: string;
 }
+
 // UserContextType
 interface UserContextType {
   user: User;
@@ -22,7 +24,12 @@ export const UserContext = createContext<UserContextType | undefined>(
 
 // 2. Provider 생성
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>({ name: "" });
+  const [user, setUser] = useState<User>({
+    userId: "202101109 박수화",
+    name: "suhwa Park",
+    age: 1,
+    phoneNumber: "010-1234-1234",
+  });
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}
@@ -34,8 +41,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 export const useUser = () => {
   const context = useContext(UserContext);
   // 에러처리
-  if (!context) {
-    throw new Error("error");
-  }
+  if (!context)
+    throw new Error("UserContext가 제대로 설정되지 않았습니다.");
   return context;
 };
