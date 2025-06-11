@@ -1,5 +1,6 @@
 /*  실습 1 */
 /* 실습 4 useContext */
+
 import { useUser } from "@/context/UserContext";
 
 interface HeaderProps {
@@ -12,7 +13,7 @@ const Header = ({ title }: HeaderProps) => {
   const { user, setUser } = useUser();
 
   return (
-    <div className="header flex justify-between items-center px-4 py-2">
+    <div className="w-full bg-white px-6 py-4 flex justify-between items-center">
       <h1 className="text-xl font-bold">{title}</h1>
 
       <div className="flex items-center gap-2">
@@ -22,7 +23,7 @@ const Header = ({ title }: HeaderProps) => {
           alt={user.name}
           className="w-8 h-8 rounded-full"
         />
-        <span className="text-sm">{user.name}</span>
+        <span className="text-sm font-bold">{user.name}</span>
       </div>
     </div>
   );
