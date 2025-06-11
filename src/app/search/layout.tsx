@@ -1,14 +1,7 @@
-import { SearchProvider } from "../../context/SearchContext";
-import { UserProvider } from "../../context/UserContext";
+// src/app/search/layout.tsx
+import { ReactNode } from "react";
+import { SearchProvider } from "@/context/SearchContext";
 
-export default function SearchLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <UserProvider>
-      <SearchProvider>{children}</SearchProvider>
-    </UserProvider>
-  );
+export default function SearchLayout({ children }: { children: ReactNode }) {
+  return <SearchProvider>{children}</SearchProvider>;
 }

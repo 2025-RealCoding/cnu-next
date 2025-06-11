@@ -1,34 +1,48 @@
-// ProductCartPage.tsx
+"use client";
+
 import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
-import { ProductItem } from "@/types/Product";
 import CartList from "./CartList";
+import { ProductItem } from "@/types/Product";
 
-export default function ProductCart({ items }: { items: ProductItem[] }) {
-  const [cart, setCart] = useState<{ [id: string]: number }>({}); // {"88159814281" : 1}
-  const [showCart, setShowCart] = useState(false); //  과제 2.1
+interface Props {
+  items: ProductItem[];
+}
 
-  //  카트에 담기
-  const handleAddToCart = (item: ProductItem, quantity: number) => {
+export default function ProductCart({ items }: Props) {
+  const [cart, setCart] = useState<Record<string, number>>({});
+  const [showCart, setShowCart] = useState(false);
+
+  useEffect(() => {
+    setShowCart(Object.keys(cart).length > 0);
+  }, [cart]);
+
+  const handleAddToCart = (item: ProductItem) => {
     setCart((prev) => ({
       ...prev,
-      [item.productId]: quantity,
+      [item.productId]: (prev[item.productId] ?? 0) + 1,
     }));
-
-    localStorage.setItem(item.productId, quantity + "");
-    localStorage.getItem(item.productId);
   };
 
-  /* 과제 2-3: Cart 아이템 지우기 */
-  const handleRemoveFromCart = () => {};
+  const handleRemoveFromCart = (productId: string) => {
+    setCart((prev) => {
+      const next = { ...prev };
+      delete next[productId];
+      return next;
+    });
+    localStorage.removeItem(productId);
+  };
 
   return (
     <div className="p-10">
-      {/* 상품 리스트 */}
       <ProductList items={items} onAddToCart={handleAddToCart} />
-      {/* 장바구니 */}
-      {/* 2.1. 조건부 카트 보이기: 카트에 담긴 상품이 없으면 카트가 보이지 않고, 카트에 담긴 물건이 있으면 카트가 보인다 */}
-      <CartList cart={cart} products={items} onRemove={handleRemoveFromCart} />
+      {showCart && (
+        <CartList
+          cart={cart}
+          products={items}
+          onRemove={handleRemoveFromCart}
+        />
+      )}
     </div>
   );
 }
