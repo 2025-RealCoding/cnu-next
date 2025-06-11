@@ -22,7 +22,7 @@ export default function MyPage() {
       </div>
       {/* 1.3. 홈으로 가기 버튼 구현(Link or Router 활용) */}
       <Link href="/"
-        className="mt-6 px-4 py-2 rounded-md bg-blue-400 text-white border border-gray-300 hover:bg-pink-500 hover:shadow-lg transition cursor-pointer">
+        className="mt-6 px-4 py-2 rounded-md bg-blue-400 text-white border border-gray-300 hover:bg-blue-500 hover:shadow-lg transition cursor-pointer">
           홈으로 가기
       </Link>
     </div>
