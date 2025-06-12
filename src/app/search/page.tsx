@@ -15,7 +15,12 @@ export default function SearchHome() {
   //  페이지 최초 렌더링 될 때, setUser로 이름 설정
   useEffect(() => {
     //  학번 + 이름 형태로 작성 (ex. 2025***** 내이름 )
-    setUser({ name: "" });
+    setUser({
+      userId: "202102706 정준모",
+      name: "jeongjoonmo",
+      age: 1,
+      phoneNumber: "010-1234-1234",
+    });
   }, []);
 
   return (
