@@ -29,9 +29,6 @@ export default function MyPage() {
         <div>
           <strong>핸드폰번호:</strong> {user.phoneNumber}
         </div>
-        <div>
-          <strong>이메일:</strong> {user.email}
-        </div>
       </div>
 
       {/* 1.3. 홈으로 가기 버튼 구현(Link or Router 활용) */}

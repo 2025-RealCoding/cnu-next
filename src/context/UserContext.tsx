@@ -10,7 +10,6 @@ interface User {
   // 추가하고 싶은 속성들 ...
   age: number;
   userId: string;
-  email: string;
   phoneNumber: string;
 }
 // UserContextType
@@ -30,7 +29,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     name: "202102700 정민용",
     age: 24,
     userId: "factwy",
-    email: "202102700@o.cnu.ac.kr",
     phoneNumber: "010-1234-5678",
    });
   return (
