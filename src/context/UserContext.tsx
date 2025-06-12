@@ -5,10 +5,11 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 // User
 interface User {
-  name: string;
-  // age: number
-  // 추가하고 싶은 속성들 ...
+  userId: string;
+  age: number;
+  phoneNumber: string;
 }
+
 // UserContextType
 interface UserContextType {
   user: User;
@@ -22,7 +23,12 @@ export const UserContext = createContext<UserContextType | undefined>(
 
 // 2. Provider 생성
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>({ name: "" });
+  const [user, setUser] = useState<User>({
+    userId: "202202604 신준석", // 학번 + 이름 형태로 작성
+    age: 1,
+    phoneNumber: "010-1234-5678",
+  });
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}
@@ -31,11 +37,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 };
 
 // 3. user 정보를 사용하기 위한 custom hook
+
 export const useUser = () => {
   const context = useContext(UserContext);
-  // 에러처리
-  if (!context) {
-    throw new Error("error");
-  }
+  if (!context) throw new Error("No UserContext");
   return context;
 };
