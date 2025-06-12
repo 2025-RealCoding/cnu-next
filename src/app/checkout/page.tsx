@@ -1,5 +1,6 @@
 // CheckoutPage
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { ProductItem } from "@/types/Product";
 
 interface CheckoutItem {
