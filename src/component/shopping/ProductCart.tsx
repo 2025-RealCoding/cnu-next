@@ -9,18 +9,35 @@ export default function ProductCart({ items }: { items: ProductItem[] }) {
   const [showCart, setShowCart] = useState(false); //  과제 2.1
 
   //  카트에 담기
+
+  useEffect(() => {
+    const hasItems = Object.keys(cart).length > 0;
+    setShowCart(hasItems);
+  }, [cart]);
+
   const handleAddToCart = (item: ProductItem, quantity: number) => {
     setCart((prev) => ({
       ...prev,
       [item.productId]: quantity,
     }));
-
     localStorage.setItem(item.productId, quantity + "");
     localStorage.getItem(item.productId);
   };
 
   /* 과제 2-3: Cart 아이템 지우기 */
-  const handleRemoveFromCart = () => {};
+  const handleRemoveFromCart = (productId: string) => {
+    setCart((prev) => {
+      const cartEntries = Object.entries(prev);
+      const filteredEntries = cartEntries.filter(
+        ([key, value]) => key !== productId
+      );
+      const newCart = Object.fromEntries(filteredEntries);
+
+      return newCart;
+    });
+
+    localStorage.removeItem(productId);
+  };
 
   return (
     <div className="p-10">
@@ -28,7 +45,9 @@ export default function ProductCart({ items }: { items: ProductItem[] }) {
       <ProductList items={items} onAddToCart={handleAddToCart} />
       {/* 장바구니 */}
       {/* 2.1. 조건부 카트 보이기: 카트에 담긴 상품이 없으면 카트가 보이지 않고, 카트에 담긴 물건이 있으면 카트가 보인다 */}
-      <CartList cart={cart} products={items} onRemove={handleRemoveFromCart} />
+      {showCart && (
+        <CartList cart={cart} products={items} onRemove={handleRemoveFromCart} />
+      )}
     </div>
   );
 }
