@@ -15,13 +15,17 @@ export default function SearchHome() {
   //  페이지 최초 렌더링 될 때, setUser로 이름 설정
   useEffect(() => {
     //  학번 + 이름 형태로 작성 (ex. 2025***** 내이름 )
-    setUser({ name: "" });
+    setUser({
+      userId: "202202604 신준석",
+      age: 22,
+      phoneNumber: "010-0000-0000",
+    });
   }, []);
 
   return (
     <div className="flex justify-center">
       <div className="w-[80%]">
-        <Header title={`${user.name} 쇼핑`} />
+        <Header title={`${user.userId} 쇼핑`} />
         <SearchInput />
         <ProductCart items={result} />
       </div>
