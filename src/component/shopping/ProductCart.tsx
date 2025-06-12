@@ -23,7 +23,7 @@ export default function ProductCart({ items }: { items: ProductItem[] }) {
   const handleRemoveFromCart = (productId: string) => {
   setCart((prevCart) => {
     const updatedCart = Object.fromEntries(
-      Object.entries(prevCart).filter(([id]) => id !== productId)
+      Object.entries(prevCart).filter(([id,_]) => id !== productId)
     );
     return updatedCart;
   });
