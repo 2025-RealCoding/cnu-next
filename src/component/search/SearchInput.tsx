@@ -1,11 +1,17 @@
 "use client";
 import { useSearch } from "@/context/SearchContext";
+import { useRef, useEffect } from "react";
 
 export default function SearchInput() {
   const { query, setQuery, setResult } = useSearch();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // 검색 기능
   const search = async () => {
+    if (!query.trim()) {
+      alert("검색어를 입력해주세요.");
+      return;
+    }
     try {
       const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
       if (!res.ok) throw new Error(`${res.status} 에러 발생`);
@@ -13,19 +19,24 @@ export default function SearchInput() {
       const data = await res.json();
       setResult(data.items || []);
     } catch (error) {
-      alert(error);
+      alert(String(error));
       setResult([]);
     }
   };
 
-  // 2.2. SearchInput 컴포넌트가 최초 렌더링 될 때, input tag에 포커스 되는 기능
-  const handleInputChange = () => {};
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
-  // 과제 1-2-3: 페이지 최초 렌더링 시, input에 포커스 되는 기능 (useRef)
+  // 사용자가 입력할 때마다 query 상태를 업데이트하도록 수정
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
 
   return (
     <div className="flex justify-center items-center gap-2 mt-4">
       <input
+        ref={inputRef}
         type="text"
         value={query}
         onChange={handleInputChange}
