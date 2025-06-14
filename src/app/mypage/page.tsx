@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import Header from "@/component/layout/Header";
 import { useUser } from "@/context/UserContext";
 
@@ -23,7 +24,6 @@ export default function MyPage() {
   return (
     <div className="flex flex-col items-center w-full min-h-screen bg-gray-50">
       <div className="w-full max-w-3xl">
-        {/* 1.2. Header Component를 재활용하여 Mypage Header 표기 (title: 마이페이지) */}
         <Header title="마이페이지" />
       </div>
 
@@ -52,6 +52,13 @@ export default function MyPage() {
       </div>
 
       {/* 1.3. 홈으로 가기 버튼 구현(Link or Router 활용) */}
+      <div className="mt-8">
+        <Link href="/">
+          <button className="w-48 px-6 py-3 rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-600 hover:shadow-lg transition-transform transform hover:-translate-y-1">
+            홈으로 가기
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
