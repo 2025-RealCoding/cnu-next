@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+// ✅ 추가
+import { UserProvider } from "@/context/UserContext";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,7 +30,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* ✅ 여기에서 UserProvider로 children 감싸기 */}
+        <UserProvider>
+          {children}
+        </UserProvider>
       </body>
     </html>
   );
