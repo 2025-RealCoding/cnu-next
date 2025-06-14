@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@/context/UserContext";
+import { SearchProvider } from "@/context/SearchContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* 모든 페이지에서 UserContext를 사용할 수 있도록 RootLayout에서 UserProvider를 적용합니다. */}
-        <UserProvider>{children}</UserProvider>
+        {/* 모든 페이지에서 컨텍스트를 사용할 수 있도록 RootLayout에서 Provider를 함께 적용합니다. */}
+        <UserProvider>
+          <SearchProvider>{children}</SearchProvider>
+        </UserProvider>
       </body>
     </html>
   );
