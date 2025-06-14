@@ -8,6 +8,9 @@ interface User {
   name: string;
   // age: number
   // 추가하고 싶은 속성들 ...
+  age: number;
+  phoneNumber: string;
+  userId: string;
 }
 // UserContextType
 interface UserContextType {
@@ -22,7 +25,12 @@ export const UserContext = createContext<UserContextType | undefined>(
 
 // 2. Provider 생성
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>({ name: "" });
+  const [user, setUser] = useState<User>({
+    name: "박상우",
+    age: 1,
+    phoneNumber: "010-2332-1651",
+    userId: "202002496박상우",
+  });
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}
