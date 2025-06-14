@@ -4,12 +4,14 @@ import { useRef, useEffect } from "react";
 
 export default function SearchInput() {
   const { query, setQuery, setResult } = useSearch();
-
-  // 과제 2.2: input 요소에 대한 ref를 생성합니다.
   const inputRef = useRef<HTMLInputElement>(null);
 
   // 검색 기능
   const search = async () => {
+    if (!query.trim()) {
+      alert("검색어를 입력해주세요.");
+      return;
+    }
     try {
       const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
       if (!res.ok) throw new Error(`${res.status} 에러 발생`);
@@ -22,12 +24,11 @@ export default function SearchInput() {
     }
   };
 
-  // 과제 2.2: 페이지 최초 렌더링 시, input에 포커스 되는 기능 (useRef)
   useEffect(() => {
-    // inputRef.current가 존재할 경우 focus() 메소드를 호출합니다.
     inputRef.current?.focus();
-  }, []); // 의존성 배열을 비워 컴포넌트가 처음 마운트될 때 한 번만 실행되도록 합니다.
+  }, []);
 
+  // 사용자가 입력할 때마다 query 상태를 업데이트하도록 수정
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
@@ -35,7 +36,7 @@ export default function SearchInput() {
   return (
     <div className="flex justify-center items-center gap-2 mt-4">
       <input
-        ref={inputRef} // ref를 input 요소에 연결합니다.
+        ref={inputRef}
         type="text"
         value={query}
         onChange={handleInputChange}
