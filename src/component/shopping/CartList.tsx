@@ -4,10 +4,11 @@ import { ProductItem } from "@/types/Product";
 interface Props {
   cart: { [productId: string]: number };
   products: ProductItem[];
-  onRemove: (productId: string) => void; // 삭제 핸들러 추가
+  onRemove: (productId: string) => void;
+  onCheckout: () => void;
 }
 
-export default function CartList({ cart, products, onRemove }: Props) {
+export default function CartList({ cart, products, onRemove, onCheckout }: Props) {
   const cartItems = Object.entries(cart)
     .map(([id, quantity]) => {
       const product = products.find((p) => p.productId === id);
@@ -60,7 +61,7 @@ export default function CartList({ cart, products, onRemove }: Props) {
 
       <div className="flex justify-center">
         <button
-          onClick={handleCheckout}
+          onClick={onCheckout}
           className="mt-4 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 flex justify-center"
         >
           결제하기
