@@ -15,9 +15,9 @@ export default function SearchHome() {
   useEffect(() => {
     //  학번 + 이름 형태로 작성 (ex. 2025***** 내이름 )
     setUser({
-      name: "20250000 Dongmin Lee",
+      name: "202304352 Dongmin Lee",
       userId: "dmin.lee", // 임시 데이터
-      age: 24, // 임시 데이터
+      age: 22, // 임시 데이터
       phoneNumber: "010-1234-5678", // 임시 데이터
     });
   }, [setUser]);
