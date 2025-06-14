@@ -1,14 +1,10 @@
-import { SearchProvider } from "../../context/SearchContext";
-import { UserProvider } from "../../context/UserContext";
+import { SearchProvider } from "@/context/SearchContext";
+// UserProvider는 RootLayout에서 제공되므로 여기서는 제거합니다.
 
 export default function SearchLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <UserProvider>
-      <SearchProvider>{children}</SearchProvider>
-    </UserProvider>
-  );
+  return <SearchProvider>{children}</SearchProvider>;
 }
