@@ -1,12 +1,14 @@
 "use client";
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState, useEffect } from "react";
 
 // 과제 1.1 UserContext 구현
 
 // User
 interface User {
   name: string;
-  // age: number
+  userId: string;
+  age: number;
+  phoneNumber: string;
   // 추가하고 싶은 속성들 ...
 }
 // UserContextType
@@ -22,7 +24,13 @@ export const UserContext = createContext<UserContextType | undefined>(
 
 // 2. Provider 생성
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>({ name: "" });
+  const [user, setUser] = useState<User>({ 
+    name: "202102656 신재호", 
+    userId: "JaehoShin", 
+    age: 25, 
+    phoneNumber: "010-1234-5678" 
+  });
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}

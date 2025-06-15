@@ -1,5 +1,4 @@
 import { SearchProvider } from "../../context/SearchContext";
-import { UserProvider } from "../../context/UserContext";
 
 export default function SearchLayout({
   children,
@@ -7,8 +6,6 @@ export default function SearchLayout({
   children: React.ReactNode;
 }) {
   return (
-    <UserProvider>
-      <SearchProvider>{children}</SearchProvider>
-    </UserProvider>
+    <SearchProvider>{children}</SearchProvider>
   );
 }
