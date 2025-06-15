@@ -1,13 +1,23 @@
 "use client";
 import { ProductItem } from "@/types/Product";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Props {
   cart: { [productId: string]: number };
   products: ProductItem[];
-  onRemove: (productId: string) => void; // 삭제 핸들러 추가
+  onRemove: (productId: string) => void;
 }
 
 export default function CartList({ cart, products, onRemove }: Props) {
+  const [showCart, setShowCart] = useState(true);
+  const router = useRouter();
+
+  // 2.1. 장바구니에 아이템이 없을 때, 장바구니 영역이 보이지 않는 기능
+  useEffect(() => {
+    setShowCart(Object.keys(cart).length > 0);
+  }, [cart]);
+
   const cartItems = Object.entries(cart)
     .map(([id, quantity]) => {
       const product = products.find((p) => p.productId === id);
@@ -21,7 +31,19 @@ export default function CartList({ cart, products, onRemove }: Props) {
   );
 
   // 2.4 결제하기: "결제하기" 버튼을 클릭하면, 현재 장바구니에 담긴 상품을 확인해 **localStorage**에 저장 후, 결제완료(/checkout) 페이지로 이동한다.
-  const handleCheckout = () => {};
+  const handleCheckout = () => {
+    const checkoutItems = cartItems.map(item => ({
+      productId: item.productId,
+      title: item.title,
+      lprice: item.lprice,
+      quantity: item.quantity
+    }));
+    
+    localStorage.setItem('checkoutItems', JSON.stringify(checkoutItems));
+    router.push('/checkout');
+  };
+
+  if (!showCart) return null;
 
   return (
     <div className="p-4 bg-white rounded shadow mt-6">

@@ -20,7 +20,14 @@ export default function ProductCart({ items }: { items: ProductItem[] }) {
   };
 
   /* 과제 2-3: Cart 아이템 지우기 */
-  const handleRemoveFromCart = () => {};
+  const handleRemoveFromCart = (productId: string) => {
+    setCart((prev) => {
+      const newCart = { ...prev };
+      delete newCart[productId];
+      localStorage.removeItem(productId);
+      return newCart;
+    });
+  };
 
   return (
     <div className="p-10">
