@@ -12,16 +12,24 @@ export default function ProductCart({ items }: { items: ProductItem[] }) {
   const handleAddToCart = (item: ProductItem, quantity: number) => {
     setCart((prev) => ({
       ...prev,
-      [item.productId]: quantity,
+      [item.productId]: (prev[item.productId] || 0) + quantity,
     }));
 
-    localStorage.setItem(item.productId, quantity + "");
-    localStorage.getItem(item.productId);
+    // localStorage.setItem(item.productId, quantity + "");
+    // localStorage.getItem(item.productId);
   };
 
   /* 과제 2-3: Cart 아이템 지우기 */
-  const handleRemoveFromCart = () => {};
+  const handleRemoveFromCart = (productId: string) => {
+    const newCart = { ...cart };
+    delete newCart[productId];
+    setCart(newCart);
+  };
 
+  useEffect(() => {
+    setShowCart(Object.keys(cart).length > 0);
+  }, [cart]);
+  
   return (
     <div className="p-10">
       {/* 상품 리스트 */}
