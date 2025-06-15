@@ -1,17 +1,28 @@
 "use client";
+
 import { ProductItem } from "@/types/Product";
+import { useRouter } from "next/navigation";
 
 interface Props {
   cart: { [productId: string]: number };
   products: ProductItem[];
-  onRemove: (productId: string) => void; // 삭제 핸들러 추가
+  onRemove: (productId: string) => void;
 }
 
 export default function CartList({ cart, products, onRemove }: Props) {
+  const router = useRouter();
+
   const cartItems = Object.entries(cart)
     .map(([id, quantity]) => {
       const product = products.find((p) => p.productId === id);
-      return product ? { ...product, quantity } : null;
+      return product
+        ? {
+            productId: product.productId,
+            title: product.title,
+            lprice: product.lprice,
+            quantity: quantity,
+          }
+        : null;
     })
     .filter((item): item is NonNullable<typeof item> => item !== null);
 
@@ -20,12 +31,27 @@ export default function CartList({ cart, products, onRemove }: Props) {
     0
   );
 
-  // 2.4 결제하기: "결제하기" 버튼을 클릭하면, 현재 장바구니에 담긴 상품을 확인해 **localStorage**에 저장 후, 결제완료(/checkout) 페이지로 이동한다.
-  const handleCheckout = () => {};
+  // 2.4 결제하기: localStorage에 장바구니 정보 저장 후 결제 완료 페이지로 이동
+  const handleCheckout = () => {
+    const checkoutData = {
+      items: cartItems,
+      total: total,
+    };
+
+    try {
+      localStorage.setItem("checkoutData", JSON.stringify(checkoutData));
+      console.log("결제 정보가 localStorage에 저장되었습니다:", checkoutData);
+      router.push("/checkout");
+    } catch (error) {
+      console.error("결제 정보 저장 또는 페이지 이동 중 오류 발생:", error);
+      alert("결제 준비 중 오류가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
 
   return (
     <div className="p-4 bg-white rounded shadow mt-6">
       <h2 className="text-xl font-bold mb-4">🛒 장바구니</h2>
+
       {cartItems.length === 0 ? (
         <p className="text-gray-500">장바구니가 비어 있어요.</p>
       ) : (
@@ -54,6 +80,7 @@ export default function CartList({ cart, products, onRemove }: Props) {
           ))}
         </ul>
       )}
+
       <div className="text-right font-bold text-lg mt-4">
         총 합계: {total.toLocaleString()}원
       </div>
