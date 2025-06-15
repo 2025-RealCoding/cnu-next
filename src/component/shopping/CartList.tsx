@@ -1,12 +1,12 @@
 "use client";
 import { ProductItem } from "@/types/Product";
+import { useRouter } from "next/router";
 
 interface Props {
   cart: { [productId: string]: number };
   products: ProductItem[];
   onRemove: (productId: string) => void; // 삭제 핸들러 추가
 }
-
 export default function CartList({ cart, products, onRemove }: Props) {
   const cartItems = Object.entries(cart)
     .map(([id, quantity]) => {
@@ -14,7 +14,6 @@ export default function CartList({ cart, products, onRemove }: Props) {
       return product ? { ...product, quantity } : null;
     })
     .filter((item): item is NonNullable<typeof item> => item !== null);
-
   const total = cartItems.reduce(
     (sum, item) => sum + Number(item.lprice) * item.quantity,
     0
@@ -22,7 +21,19 @@ export default function CartList({ cart, products, onRemove }: Props) {
 
   // 2.4 결제하기: "결제하기" 버튼을 클릭하면, 현재 장바구니에 담긴 상품을 확인해 **localStorage**에 저장 후, 결제완료(/checkout) 페이지로 이동한다.
   const handleCheckout = () => {};
+    const router = useRouter();
+    const handleCheckout = () => {
+    const checkoutItems = cartItems.map((item) => ({
+      productId: item.productId,
+      title: item.title,
+      price: Number(item.lprice),
+      quantity: item.quantity,
+    }));
 
+    localStorage.setItem("checkoutItems", JSON.stringify(checkoutItems));
+
+    router.push("/checkout");
+  };
   return (
     <div className="p-4 bg-white rounded shadow mt-6">
       <h2 className="text-xl font-bold mb-4">🛒 장바구니</h2>
@@ -57,7 +68,6 @@ export default function CartList({ cart, products, onRemove }: Props) {
       <div className="text-right font-bold text-lg mt-4">
         총 합계: {total.toLocaleString()}원
       </div>
-
       <div className="flex justify-center">
         <button
           onClick={handleCheckout}
