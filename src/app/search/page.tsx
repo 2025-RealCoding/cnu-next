@@ -13,12 +13,19 @@ export default function SearchHome() {
   const { result } = useSearch();
 
   //  페이지 최초 렌더링 될 때, setUser로 이름 설정
+  //  페이지 최초 렌더링 될 때, setUser로 이름 설정
   useEffect(() => {
     //  학번 + 이름 형태로 작성 (ex. 2025***** 내이름 )
-    setUser({ name: "" });
+    setUser({ 
+      name: "202302616 정재현",
+    age : 26,
+    userId : "mhgrid",
+    email: "mhgrid@naver.com",
+    phoneNumber: "010-1234-5678"
+    });
   }, []);
 
-  return (
+   return (
     <div className="flex justify-center">
       <div className="w-[80%]">
         <Header title={`${user.name} 쇼핑`} />
