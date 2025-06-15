@@ -1,13 +1,16 @@
+//CartList.tsx
 "use client";
 import { ProductItem } from "@/types/Product";
+import { useRouter } from "next/navigation";
 
 interface Props {
   cart: { [productId: string]: number };
   products: ProductItem[];
-  onRemove: (productId: string) => void; // 삭제 핸들러 추가
+  onRemove: (productId: string) => void;
 }
 
 export default function CartList({ cart, products, onRemove }: Props) {
+  const router = useRouter();
   const cartItems = Object.entries(cart)
     .map(([id, quantity]) => {
       const product = products.find((p) => p.productId === id);
@@ -21,11 +24,32 @@ export default function CartList({ cart, products, onRemove }: Props) {
   );
 
   // 2.4 결제하기: "결제하기" 버튼을 클릭하면, 현재 장바구니에 담긴 상품을 확인해 **localStorage**에 저장 후, 결제완료(/checkout) 페이지로 이동한다.
-  const handleCheckout = () => {};
+    const handleCheckout = () => {
+        try {
+            const checkoutItems = cartItems.map((item) => ({
+                product: {
+                    productId: item.productId,
+                    title: item.title,
+                    lprice: item.lprice,
+                },
+                quantity: item.quantity,
+            }));
+            localStorage.setItem("checkoutItems", JSON.stringify(checkoutItems));
 
+            if (router) {
+                router.push("/checkout");
+            } else {
+                console.error("Router is not available");
+                window.location.href = "/checkout";
+            }
+        } catch (error) {
+            console.error("Checkout error:", error);
+            alert("결제 처리 중 오류가 발생했습니다.");
+        }
+    };
   return (
     <div className="p-4 bg-white rounded shadow mt-6">
-      <h2 className="text-xl font-bold mb-4">🛒 장바구니</h2>
+      <h2 className="text-xl font-bold mb-4">장바구니</h2>
       {cartItems.length === 0 ? (
         <p className="text-gray-500">장바구니가 비어 있어요.</p>
       ) : (
