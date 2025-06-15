@@ -9,23 +9,20 @@ interface User {
   phoneNumber: string;
 }
 
-// Context 타입 정의
 interface UserContextType {
   user: User;
   setUser: (user: User) => void;
 }
 
-// Context 생성
 export const UserContext = createContext<UserContextType | undefined>(
   undefined
 );
 
-// Provider 컴포넌트
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User>({
-    name: "홍길동",
-    userId: "hong123",
-    age: 25,
+    name: "정재현",
+    userId: "mhgrid",
+    age: 26,
     phoneNumber: "010-1234-5678",
   });
 
@@ -36,7 +33,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// custom hook
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
