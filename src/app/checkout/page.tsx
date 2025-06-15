@@ -1,6 +1,7 @@
 // CheckoutPage
 import { useEffect, useState } from "react";
 import { ProductItem } from "@/types/Product";
+import { useRouter } from "next/router";
 
 interface CheckoutItem {
   product: ProductItem;
