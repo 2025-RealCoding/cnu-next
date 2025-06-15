@@ -1,6 +1,6 @@
 "use client";
 import { ProductItem } from "@/types/Product";
-
+import { useRouter } from "next/navigation";
 interface Props {
   cart: { [productId: string]: number };
   products: ProductItem[];
@@ -21,7 +21,21 @@ export default function CartList({ cart, products, onRemove }: Props) {
   );
 
   // 2.4 결제하기: "결제하기" 버튼을 클릭하면, 현재 장바구니에 담긴 상품을 확인해 **localStorage**에 저장 후, 결제완료(/checkout) 페이지로 이동한다.
-  const handleCheckout = () => {};
+  const router = useRouter();
+  const handleCheckout = () => {
+    if (cartItems.length === 0) {
+      alert("장바구니가 비어 있습니다.");
+      return;
+    }
+    const checkoutData = cartItems.map((item) => ({
+      productId: item.productId,
+      title: item.title,
+      lprice: item.lprice,
+      quantity: item.quantity,
+    }));
+    localStorage.setItem("checkoutItems", JSON.stringify(checkoutData));
+    router.push("/checkout");
+  };
 
   return (
     <div className="p-4 bg-white rounded shadow mt-6">
