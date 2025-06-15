@@ -2,7 +2,7 @@
 
 import { useUser } from "@/context/UserContext";
 import Link from "next/link";
-import Header from "@/components/Header"; // 이미 있는 컴포넌트일 경우
+import Header from "@/components/layout/Header"; // 이미 있는 컴포넌트일 경우
 
 export default function MyPage() {
   const { user } = useUser();
@@ -20,7 +20,7 @@ export default function MyPage() {
       </div>
 
       {/* 홈으로 가기 버튼 */}
-      <Link href="/" className="text-blue-600 hover:underline mt-4">
+      <Link href="/serch" className="text-blue-600 hover:underline mt-4">
         홈으로 가기
       </Link>
     </div>
