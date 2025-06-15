@@ -16,11 +16,11 @@ export default function SearchHome() {
   useEffect(() => {
     //  학번 + 이름 형태로 작성 (ex. 2025***** 내이름 )
     setUser({ 
-      name: "202302550 박경서",
+      name: "202302524 경하영",
     age : 22,
-    userId : "esther",
-    email: "esther082325@naver.com",
-    phoneNumber: "010-1111-2222"
+    userId : "hykhung",
+    email: "rudwpdnd@naver.com",
+    phoneNumber: "010-1234-7777"
     });
   }, []);
 
